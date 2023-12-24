@@ -27,6 +27,8 @@ public class HttpServer {
         server.await();
     }
 
+
+    //这个函数目前只能处理静态资源的访问
     public void await() {
         // 启动ServerSocket
         ServerSocket serverSocket = null;
