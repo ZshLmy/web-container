@@ -51,6 +51,13 @@ public class HttpServer {
                 input = socket.getInputStream();
                 output = socket.getOutputStream();
 
+
+                //Request对象和Response对象是容器负责创建的，容器会将创建的两个对象穿给Servlet，程序员可以在开发Servlet的时候使用
+                //Servlet对象是Servlet容器创建的，生命周期方法都是由容器(目前我们使用的是Tomcat)调用的。
+                // 这一点和我们之前所编写的代码有很大不同。在今后的学习中我们会看到，越来越多的对象交给容器或框架来创建，越来越多的方法由容器或框架来调用，
+                // 开发人员要尽可能多的将精力放在业务逻辑的实现上。(web编程时专注于开发Servlet)
+
+
                 // 封装input至request, 并处理请求
                 Request request = new Request(input);
                 request.parse();

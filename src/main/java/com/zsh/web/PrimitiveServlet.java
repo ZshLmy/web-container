@@ -6,6 +6,8 @@ import java.io.PrintWriter;
 
 public class PrimitiveServlet implements Servlet {
 
+
+    //ServletConfig对象是web容器负责创建的，容器调用这个方法的时候会传入这个对象
     public void init(ServletConfig config) throws ServletException {
         System.out.println("init");
     }
