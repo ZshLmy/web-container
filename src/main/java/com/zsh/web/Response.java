@@ -1,14 +1,12 @@
 package com.zsh.web;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.ServletResponse;
+import java.io.*;
 import java.util.Arrays;
+import java.util.Locale;
 
-public class Response {
-
-    private static final int BUFFER_SIZE = 1024;
+public class Response implements ServletResponse {
     Request request;
     OutputStream output;
 
@@ -21,39 +19,84 @@ public class Response {
         this.request = request;
     }
 
-    public void sendStaticResource() throws IOException {
-        byte[] bytes = new byte[BUFFER_SIZE];
-        FileInputStream fis = null;
-        try {
-            // 读取文件内容
-            File file = new File(HttpServer.WEB_ROOT, request.getUri());
-            if (file.exists()) {
-                //TODO 需要按照http格式返回
-                fis = new FileInputStream(file);
-                int ch = fis.read(bytes, 0, BUFFER_SIZE);
-                while (ch!=-1) {
-                    output.write(bytes, 0, ch);
-                    ch = fis.read(bytes, 0, BUFFER_SIZE);
-                }
-            }
-            else {
+    @Override
+    public String getCharacterEncoding() {
+        return null;
+    }
 
-                // 文件不存在时，输出404信息
-                String errorMessage = "HTTP/1.1 404 File Not Found\r\n" +
-                        "Content-Type: text/html\r\n" +
-                        "Content-Length: 23\r\n" +
-                        "\r\n" +
-                        "<h1>File Not Found</h1>";
-                output.write(errorMessage.getBytes());
-            }
-        }
-        catch (Exception e) {
-            // thrown if cannot instantiate a File object
-            System.out.println(e.toString() );
-        }
-        finally {
-            if (fis!=null)
-                fis.close();
-        }
+    @Override
+    public String getContentType() {
+        return null;
+    }
+
+    @Override
+    public ServletOutputStream getOutputStream() throws IOException {
+        return null;
+    }
+
+    @Override
+    public PrintWriter getWriter() throws IOException {
+        OutputStreamWriter w = new OutputStreamWriter(output);
+        return new PrintWriter(w);
+    }
+
+    @Override
+    public void setCharacterEncoding(String s) {
+
+    }
+
+    @Override
+    public void setContentLength(int i) {
+
+    }
+
+    @Override
+    public void setContentLengthLong(long l) {
+
+    }
+
+    @Override
+    public void setContentType(String s) {
+
+    }
+
+    @Override
+    public void setBufferSize(int i) {
+
+    }
+
+    @Override
+    public int getBufferSize() {
+        return 0;
+    }
+
+    @Override
+    public void flushBuffer() throws IOException {
+
+    }
+
+    @Override
+    public void resetBuffer() {
+
+    }
+
+    @Override
+    public boolean isCommitted() {
+        return false;
+    }
+
+    @Override
+    public void reset() {
+
+    }
+
+    @Override
+    public void setLocale(Locale locale) {
+
+    }
+
+    @Override
+    public Locale getLocale() {
+        return null;
     }
 }
